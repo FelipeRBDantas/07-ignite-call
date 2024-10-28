@@ -1,6 +1,6 @@
-import { globalStyles } from '@feliperbdantas-ignite-ui/react';
+import { globalCss } from '@feliperbdantas-ignite-ui/react';
 
-export const globalStyles = globalStyles({
+export const globalStyles = globalCss({
   '*': {
     boxSizing: 'border-box',
     margin: 0,
