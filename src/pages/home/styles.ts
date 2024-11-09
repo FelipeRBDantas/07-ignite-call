@@ -1,4 +1,4 @@
-import { styled } from '@feliperbdantas-ignite-ui/react'
+import { Heading, styled, Text } from '@feliperbdantas-ignite-ui/react'
 
 export const Container = styled('div', {
   maxWidth: 'calc(100vw - (100vw - 1160px) / 2)',
@@ -14,6 +14,36 @@ export const Container = styled('div', {
   },
 })
 
-export const Hero = styled('div', {})
+export const Hero = styled('div', {
+  maxWidth: 480,
+  padding: '0 $10',
 
-export const Preview = styled('div', {})
+  [`> ${Heading}`]: {
+    '@media(max-width: 768px)': {
+      fontSize: '$6xl',
+    },
+  },
+
+  [`> ${Text}`]: {
+    marginTop: '$2',
+    color: '$gray200',
+  },
+})
+
+export const Preview = styled('div', {
+  padding: '$8',
+  overflow: 'hidden',
+
+  '@media(max-width: 768px)': {
+    display: 'none',
+  },
+
+  '@media(min-width: 768px)': {
+    border: '1px solid $gray600',
+    borderRadius: '$md',
+  },
+
+  img: {
+    objectFit: 'cover',
+  },
+})
