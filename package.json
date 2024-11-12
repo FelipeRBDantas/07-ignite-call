@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@feliperbdantas-ignite-ui/react": "^2.4.0",
+    "@feliperbdantas-ignite-ui/react": "^2.5.0",
     "@hookform/resolvers": "^3.9.1",
     "@types/node": "22.8.2",
     "@types/react": "18.3.12",
