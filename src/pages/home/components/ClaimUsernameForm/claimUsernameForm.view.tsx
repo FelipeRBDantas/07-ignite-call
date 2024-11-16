@@ -9,7 +9,8 @@ import { Form, FormAnnotation } from './styles'
 type ClaimUsernameFormProps = ReturnType<typeof useClaimUsernameFormModel>
 
 export const ClaimUsernameFormView = (props: ClaimUsernameFormProps) => {
-  const { register, handleSubmit, handleClaimUsername } = props
+  const { errors, isSubmitting, register, handleSubmit, handleClaimUsername } =
+    props
 
   return (
     <>
@@ -21,7 +22,7 @@ export const ClaimUsernameFormView = (props: ClaimUsernameFormProps) => {
           {...register('username')}
         />
 
-        <Button size="sm" type="submit">
+        <Button size="sm" type="submit" disabled={isSubmitting}>
           Reservar
           <ArrowRight />
         </Button>
@@ -29,9 +30,7 @@ export const ClaimUsernameFormView = (props: ClaimUsernameFormProps) => {
 
       <FormAnnotation>
         <Text size="sm">
-          {props.errors.username && (
-            <span>{props.errors.username.message}</span>
-          )}
+          {errors.username && <span>{errors.username.message}</span>}
         </Text>
       </FormAnnotation>
     </>
