@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { api } from '@/lib/axios'
+
 import { registerFormSchema } from './register.schema'
 
 import { RegisterFormData } from './register.type'
@@ -29,7 +31,14 @@ export const useRegisterModel = () => {
   }, [router.query?.username, setValue])
 
   async function handleRegister(data: RegisterFormData) {
-    console.log(data)
+    try {
+      await api.post('/users', {
+        name: data.name,
+        username: data.username,
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return {
