@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.0.1",
+    "@types/cookie": "^1.0.0",
     "prisma": "^5.22.0"
   }
 }
