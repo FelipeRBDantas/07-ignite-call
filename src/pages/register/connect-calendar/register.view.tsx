@@ -32,7 +32,14 @@ export const ConnectCalendarView = (props: ConnectCalendarProps) => {
       </Header>
 
       <ConnectBox>
-        <ConnectItem></ConnectItem>
+        <ConnectItem>
+          <Text>Google Calendar</Text>
+
+          <Button variant="secondary" size="sm" onClick={handleConnectCalendar}>
+            Conectar
+            <ArrowRight />
+          </Button>
+        </ConnectItem>
 
         <Button type="submit">
           Próximo passo
