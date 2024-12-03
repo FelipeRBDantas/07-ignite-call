@@ -1,5 +1,5 @@
 import { HomeView } from './home.view'
 
-export function Home() {
+export default function Home() {
   return <HomeView />
 }
