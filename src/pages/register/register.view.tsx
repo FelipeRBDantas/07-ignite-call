@@ -15,7 +15,7 @@ import { Container, Form, FormError, Header } from './styles'
 type RegisterProps = ReturnType<typeof useRegisterModel>
 
 export const RegisterView = (props: RegisterProps) => {
-  const { errors, register, handleSubmit, handleRegister } = props
+  const { errors, isSubmitting, register, handleSubmit, handleRegister } = props
 
   return (
     <Container>
@@ -55,7 +55,7 @@ export const RegisterView = (props: RegisterProps) => {
           )}
         </label>
 
-        <Button type="submit">
+        <Button type="submit" disabled={isSubmitting}>
           Próximo passo
           <ArrowRight />
         </Button>
