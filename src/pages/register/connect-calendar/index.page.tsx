@@ -1,6 +1,6 @@
-import { useConnectCalendarModel } from './register.model'
+import { useConnectCalendarModel } from './connect-calendar.model'
 
-import { ConnectCalendarView } from './register.view'
+import { ConnectCalendarView } from './connect-calendar.view'
 
 export default function ConnectCalendar() {
   const methods = useConnectCalendarModel()

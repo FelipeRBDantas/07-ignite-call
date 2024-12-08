@@ -7,7 +7,7 @@ import {
   Text,
 } from '@feliperbdantas-ignite-ui/react'
 
-import { useConnectCalendarModel } from './register.model'
+import { useConnectCalendarModel } from './connect-calendar.model'
 
 import { Container, Header } from '../styles'
 
@@ -16,7 +16,7 @@ import { ConnectBox, ConnectItem } from './styles'
 type ConnectCalendarProps = ReturnType<typeof useConnectCalendarModel>
 
 export const ConnectCalendarView = (props: ConnectCalendarProps) => {
-  const { handleConnectCalendar } = props
+  const { session, handleConnectCalendar } = props
 
   return (
     <Container>
@@ -35,11 +35,17 @@ export const ConnectCalendarView = (props: ConnectCalendarProps) => {
         <ConnectItem>
           <Text>Google Calendar</Text>
 
-          <Button variant="secondary" size="sm" onClick={handleConnectCalendar}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => handleConnectCalendar}
+          >
             Conectar
             <ArrowRight />
           </Button>
         </ConnectItem>
+
+        <pre>{JSON.stringify(session.data)}</pre>
 
         <Button type="submit">
           Próximo passo
