@@ -38,7 +38,7 @@ export const ConnectCalendarView = (props: ConnectCalendarProps) => {
           <Button
             variant="secondary"
             size="sm"
-            onClick={() => handleConnectCalendar}
+            onClick={() => handleConnectCalendar()}
           >
             Conectar
             <ArrowRight />
