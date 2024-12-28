@@ -1,4 +1,4 @@
-import { ArrowRight } from 'phosphor-react'
+import { ArrowRight, Check } from 'phosphor-react'
 
 import {
   Button,
@@ -11,12 +11,12 @@ import { useConnectCalendarModel } from './connect-calendar.model'
 
 import { Container, Header } from '../styles'
 
-import { ConnectBox, ConnectItem } from './styles'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 type ConnectCalendarProps = ReturnType<typeof useConnectCalendarModel>
 
 export const ConnectCalendarView = (props: ConnectCalendarProps) => {
-  const { session, handleConnectCalendar } = props
+  const { isSignedIn, hasAuthError, handleConnectCalendar } = props
 
   return (
     <Container>
@@ -35,19 +35,31 @@ export const ConnectCalendarView = (props: ConnectCalendarProps) => {
         <ConnectItem>
           <Text>Google Calendar</Text>
 
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => handleConnectCalendar()}
-          >
-            Conectar
-            <ArrowRight />
-          </Button>
+          {isSignedIn ? (
+            <Button size={'sm'} disabled>
+              Conectado
+              <Check />
+            </Button>
+          ) : (
+            <Button
+              variant={'secondary'}
+              size={'sm'}
+              onClick={() => handleConnectCalendar()}
+            >
+              Conectar
+              <ArrowRight />
+            </Button>
+          )}
         </ConnectItem>
 
-        <pre>{JSON.stringify(session.data)}</pre>
+        {hasAuthError && (
+          <AuthError size={'sm'}>
+            Falha ao se conectar ao Google, verifique se você habilitou as
+            permissões de acesso ao Google Calendar
+          </AuthError>
+        )}
 
-        <Button type="submit">
+        <Button type="submit" disabled={!isSignedIn}>
           Próximo passo
           <ArrowRight />
         </Button>
