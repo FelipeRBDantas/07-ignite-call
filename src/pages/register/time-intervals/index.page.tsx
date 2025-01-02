@@ -1,6 +1,6 @@
-import { useTimeIntervalsModel } from './connect-calendar.model'
+import { useTimeIntervalsModel } from './time-intervals.model'
 
-import { TimeIntervalsView } from './connect-calendar.view'
+import { TimeIntervalsView } from './time-intervals.view'
 
 export default function TimeIntervals() {
   const methods = useTimeIntervalsModel()
