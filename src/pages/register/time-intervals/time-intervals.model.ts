@@ -13,6 +13,7 @@ export const useTimeIntervalsModel = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<TimeIntervalsFormData>({
     defaultValues: {
@@ -34,6 +35,8 @@ export const useTimeIntervalsModel = () => {
     name: 'intervals',
   })
 
+  const intervals = watch('intervals')
+
   const weekDays = getWeekDays()
 
   async function handleSetTimeIntervals() {}
@@ -44,5 +47,7 @@ export const useTimeIntervalsModel = () => {
     fields,
     weekDays,
     register,
+    control,
+    intervals,
   }
 }
