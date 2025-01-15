@@ -39,7 +39,9 @@ export const useTimeIntervalsModel = () => {
 
   const weekDays = getWeekDays()
 
-  async function handleSetTimeIntervals() {}
+  async function handleSetTimeIntervals(data: TimeIntervalsFormData) {
+    console.log(data)
+  }
 
   return {
     handleSetTimeIntervals,
@@ -49,5 +51,7 @@ export const useTimeIntervalsModel = () => {
     register,
     control,
     intervals,
+    errors,
+    isSubmitting,
   }
 }

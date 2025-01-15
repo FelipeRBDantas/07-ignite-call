@@ -16,6 +16,7 @@ import { useTimeIntervalsModel } from './time-intervals.model'
 import { Container, Header } from '../styles'
 
 import {
+  FormError,
   IntervalBox,
   IntervalDay,
   IntervalInputs,
@@ -34,6 +35,8 @@ export const TimeIntervalsView = (props: TimeIntervalsProps) => {
     register,
     control,
     intervals,
+    isSubmitting,
+    errors,
   } = props
 
   return (
@@ -95,7 +98,11 @@ export const TimeIntervalsView = (props: TimeIntervalsProps) => {
           })}
         </IntervalsContainer>
 
-        <Button type="submit">
+        {errors.intervals && (
+          <FormError size={'sm'}>{errors.intervals.root?.message}</FormError>
+        )}
+
+        <Button type="submit" disabled={isSubmitting}>
           Proximo passo
           <ArrowRight />
         </Button>

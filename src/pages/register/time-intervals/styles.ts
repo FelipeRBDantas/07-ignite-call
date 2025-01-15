@@ -1,4 +1,4 @@
-import { Box, styled } from '@feliperbdantas-ignite-ui/react'
+import { Box, styled, Text } from '@feliperbdantas-ignite-ui/react'
 
 export const IntervalBox = styled(Box, {
   marginTop: '$6',
@@ -39,4 +39,9 @@ export const IntervalInputs = styled('div', {
     filter: 'invert(100%) brightness(40%)',
     cursor: 'pointer',
   },
+})
+
+export const FormError = styled(Text, {
+  color: '#f75a68',
+  marginBottom: '$4',
 })
