@@ -4,7 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { getWeekDays } from '@/utils/get-week-days'
 
-import { TimeIntervalsFormData } from './time-intervals.type'
+import {
+  TimeIntervalsFormInput,
+  TimeIntervalsFormOutput,
+} from './time-intervals.type'
 
 import { timeIntervalsFormSchema } from './time-intervals.schema'
 
@@ -15,7 +18,7 @@ export const useTimeIntervalsModel = () => {
     control,
     watch,
     formState: { errors, isSubmitting },
-  } = useForm<TimeIntervalsFormData>({
+  } = useForm<TimeIntervalsFormInput, unknown, TimeIntervalsFormOutput>({
     defaultValues: {
       intervals: [
         { weekDay: 0, enabled: false, startTime: '08:00', endTime: '18:00' },
@@ -39,7 +42,7 @@ export const useTimeIntervalsModel = () => {
 
   const weekDays = getWeekDays()
 
-  async function handleSetTimeIntervals(data: TimeIntervalsFormData) {
+  async function handleSetTimeIntervals(data: TimeIntervalsFormOutput) {
     console.log(data)
   }
 
