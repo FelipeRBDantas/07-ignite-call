@@ -12,27 +12,34 @@ yarn dev
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screens
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Desktop:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+![screen_desktop_1](https://github.com/user-attachments/assets/db49ea59-842c-46c4-93b3-5ea39f5a19e4)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![screen_desktop_2](https://github.com/user-attachments/assets/151bff61-c066-47c0-bb99-4695cf5f6e4f)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+![screen_desktop_3](https://github.com/user-attachments/assets/12b189f1-8b4b-4e7b-a61f-a8629be7a8b0)
 
-## Learn More
+![screen_desktop_4](https://github.com/user-attachments/assets/8e9203a7-3f22-46ae-a5c3-bb12a8c80d59)
 
-To learn more about Next.js, take a look at the following resources:
+Mobile:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![screen_mobile_1](https://github.com/user-attachments/assets/46d33439-7be3-4f14-a86c-098ee136e542)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+![screen_mobile_2](https://github.com/user-attachments/assets/074ca8b3-8d8b-402c-a947-344629422af1)
 
-## Deploy on Vercel
+![screen_mobile_3](https://github.com/user-attachments/assets/72688b74-c3a0-4760-a7ba-91da055d8c9d)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![screen_mobile_4](https://github.com/user-attachments/assets/f1c85fd3-9ac2-4780-b180-4876b18f417f)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Prisma Results
+
+![prisma_1](https://github.com/user-attachments/assets/7eb3abda-a85b-48e1-97fe-009b8cd4a309)
+
+![prisma_2](https://github.com/user-attachments/assets/4b608deb-c0ba-4112-8c74-5568032ae13b)
+
+![prisma_3](https://github.com/user-attachments/assets/a56dac4b-20a8-4028-b8cc-b13bdb397267)
+
+![prisma_4](https://github.com/user-attachments/assets/ad22066b-dade-48aa-a404-562cf7c0f5dc)
