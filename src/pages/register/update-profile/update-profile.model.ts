@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { updateProfileFormSchema } from './update-profile.schema'
 
 import { UpdateProfileFormData } from './update-profile.type'
+import { useSession } from 'next-auth/react'
 
 export const useUpdateProfileModel = () => {
   const {
@@ -15,6 +16,8 @@ export const useUpdateProfileModel = () => {
     resolver: zodResolver(updateProfileFormSchema),
   })
 
+  const session = useSession()
+
   async function handleUpdateProfile(data: UpdateProfileFormData) {
     console.log(data)
   }
@@ -24,5 +27,6 @@ export const useUpdateProfileModel = () => {
     register,
     handleSubmit,
     handleUpdateProfile,
+    session,
   }
 }

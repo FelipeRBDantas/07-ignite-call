@@ -17,7 +17,10 @@ import { FormAnnotation, ProfileBox } from './styles'
 type UpdateProfileProps = ReturnType<typeof useUpdateProfileModel>
 
 export const UpdateProfileView = (props: UpdateProfileProps) => {
-  const { isSubmitting, register, handleSubmit, handleUpdateProfile } = props
+  const { isSubmitting, register, handleSubmit, handleUpdateProfile, session } =
+    props
+
+  console.log(session)
 
   return (
     <Container>
