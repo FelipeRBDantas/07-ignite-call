@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 export const useConnectCalendarModel = () => {
   const session = useSession()
 
-  console.log(session)
-
   const router = useRouter()
 
   const hasAuthError = !!router.query?.error
@@ -14,12 +12,17 @@ export const useConnectCalendarModel = () => {
   const isSignedIn = session.status === 'authenticated'
 
   async function handleConnectCalendar(provider = 'google') {
-    return await signIn(provider)
+    await signIn(provider)
+  }
+
+  async function handleNavigateToNextStep() {
+    await router.push('/register/time-intervals')
   }
 
   return {
     isSignedIn,
     hasAuthError,
     handleConnectCalendar,
+    handleNavigateToNextStep,
   }
 }

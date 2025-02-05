@@ -2,6 +2,8 @@ import { useFieldArray, useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import { useRouter } from 'next/router'
+
 import { api } from '@/lib/axios'
 
 import { getWeekDays } from '@/utils/get-week-days'
@@ -35,6 +37,8 @@ export const useTimeIntervalsModel = () => {
     resolver: zodResolver(timeIntervalsFormSchema),
   })
 
+  const router = useRouter()
+
   const { fields } = useFieldArray({
     control,
     name: 'intervals',
@@ -50,6 +54,8 @@ export const useTimeIntervalsModel = () => {
     const { intervals } = data
 
     await api.post('/users/time-intervals', { intervals })
+
+    await router.push('/register/update-profile')
   }
 
   return {

@@ -16,7 +16,12 @@ import { AuthError, ConnectBox, ConnectItem } from './styles'
 type ConnectCalendarProps = ReturnType<typeof useConnectCalendarModel>
 
 export const ConnectCalendarView = (props: ConnectCalendarProps) => {
-  const { isSignedIn, hasAuthError, handleConnectCalendar } = props
+  const {
+    isSignedIn,
+    hasAuthError,
+    handleConnectCalendar,
+    handleNavigateToNextStep,
+  } = props
 
   return (
     <Container>
@@ -59,7 +64,11 @@ export const ConnectCalendarView = (props: ConnectCalendarProps) => {
           </AuthError>
         )}
 
-        <Button type="submit" disabled={!isSignedIn}>
+        <Button
+          type="submit"
+          onClick={handleNavigateToNextStep}
+          disabled={!isSignedIn}
+        >
           Próximo passo
           <ArrowRight />
         </Button>
