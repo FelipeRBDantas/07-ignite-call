@@ -18,7 +18,9 @@ import { updateProfileFormSchema } from './update-profile.schema'
 
 import { UpdateProfileFormData } from './update-profile.type'
 
-export const useUpdateProfileModel = () => {
+export const useUpdateProfileModel = (
+  session: ReturnType<typeof useSession>,
+) => {
   const {
     register,
     handleSubmit,
@@ -26,8 +28,6 @@ export const useUpdateProfileModel = () => {
   } = useForm<UpdateProfileFormData>({
     resolver: zodResolver(updateProfileFormSchema),
   })
-
-  const session = useSession()
 
   const router = useRouter()
 

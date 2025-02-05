@@ -21,8 +21,6 @@ export const UpdateProfileView = (props: UpdateProfileProps) => {
   const { isSubmitting, register, handleSubmit, handleUpdateProfile, session } =
     props
 
-  console.log(session)
-
   return (
     <Container>
       <Header>
