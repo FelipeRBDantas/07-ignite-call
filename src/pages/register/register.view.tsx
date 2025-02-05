@@ -10,7 +10,7 @@ import {
 
 import { useRegisterModel } from './register.model'
 
-import { Container, Form, FormError, Header } from './styles'
+import { Container, Form, FormError, Header } from '@/views/register/styles'
 
 type RegisterProps = ReturnType<typeof useRegisterModel>
 

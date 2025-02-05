@@ -13,7 +13,7 @@ import { Controller } from 'react-hook-form'
 
 import { useTimeIntervalsModel } from './time-intervals.model'
 
-import { Container, Header } from '../styles'
+import { Container, Header } from '../../../views/register/styles'
 
 import {
   FormError,

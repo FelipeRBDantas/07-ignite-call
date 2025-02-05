@@ -9,7 +9,7 @@ import {
   TextArea,
 } from '@feliperbdantas-ignite-ui/react'
 
-import { useUpdateProfileModel } from './update-profile.model'
+import { useUpdateProfileModel } from '@/presentation/view-models/update-profile.view-model'
 
 import { Container, Header } from '../styles'
 

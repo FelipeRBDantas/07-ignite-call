@@ -1,6 +1,6 @@
-import { useUpdateProfileModel } from './update-profile.model'
+import { useUpdateProfileModel } from '@/presentation/view-models/update-profile.view-model'
 
-import { UpdateProfileView } from './update-profile.view'
+import { UpdateProfileView } from '@/views/register/update-profile/update-profile.view'
 
 export default function UpdateProfile() {
   const methods = useUpdateProfileModel()

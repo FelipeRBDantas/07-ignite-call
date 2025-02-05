@@ -10,15 +10,15 @@ import { GetServerSideProps } from 'next'
 
 import { getServerSession } from 'next-auth'
 
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+import { UpdateProfileUseCase } from '@/domain/usecases/update-profile.usecase'
 
 import { UserRepository } from '@/data/repositories/user.repository'
 
-import { UpdateProfileUseCase } from '@/domain/usecases/update-profile.usecase'
+import { updateProfileFormSchema } from '@/domain/validations/update-profile.schema'
 
-import { updateProfileFormSchema } from './update-profile.schema'
+import { UpdateProfileFormData } from '@/domain/model/update-profile.type'
 
-import { UpdateProfileFormData } from './update-profile.type'
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 
 export const useUpdateProfileModel = () => {
   const {
