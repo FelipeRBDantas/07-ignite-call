@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 import { getServerSession } from 'next-auth'
 
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/infra/prisma/prisma'
 
 import { buildNextAuthOptions } from '../auth/[...nextauth].api'
 

@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { AxiosError } from 'axios'
 
-import { api } from '@/lib/axios'
+import { api } from '@/infra/axios/axios'
 
 import { registerFormSchema } from './register.schema'
 

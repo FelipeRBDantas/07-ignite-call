@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useRouter } from 'next/router'
 
-import { api } from '@/lib/axios'
+import { api } from '@/infra/axios/axios'
 
-import { getWeekDays } from '@/utils/get-week-days'
+import { getWeekDays } from '@/shared/utils/get-week-days'
 
 import {
   TimeIntervalsFormInput,

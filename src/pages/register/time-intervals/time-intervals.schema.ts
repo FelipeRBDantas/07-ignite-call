@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
+import { convertTimeStringToMinutes } from '@/shared/utils/convert-time-string-to-minutes'
 
 export const timeIntervalsFormSchema = z.object({
   intervals: z

@@ -6,21 +6,15 @@ import { useSession } from 'next-auth/react'
 
 import { useRouter } from 'next/router'
 
-import { GetServerSideProps } from 'next'
-
-import { getServerSession } from 'next-auth'
-
 import { UpdateProfileUseCase } from '@/domain/usecases/update-profile.usecase'
-
-import { UserRepository } from '@/data/repositories/user.repository'
 
 import { updateProfileFormSchema } from '@/domain/validations/update-profile.schema'
 
 import { UpdateProfileFormData } from '@/domain/model/update-profile.type'
 
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
-
-export const useUpdateProfileModel = () => {
+export const useUpdateProfileModel = (
+  updateProfileUseCase: UpdateProfileUseCase,
+) => {
   const {
     register,
     handleSubmit,
@@ -36,10 +30,6 @@ export const useUpdateProfileModel = () => {
   async function handleUpdateProfile(data: UpdateProfileFormData) {
     console.log(data)
 
-    const userRepository = new UserRepository()
-
-    const updateProfileUseCase = new UpdateProfileUseCase(userRepository)
-
     await updateProfileUseCase.execute(data.bio)
 
     await router.push(`/schedule/${session.data?.user.username}`)
@@ -52,14 +42,4 @@ export const useUpdateProfileModel = () => {
     handleUpdateProfile,
     session,
   }
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(
-    req,
-    res,
-    buildNextAuthOptions(req, res),
-  )
-
-  return { props: { session } }
 }

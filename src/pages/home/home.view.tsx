@@ -6,7 +6,7 @@ import { ClaimUsernameForm } from './components/ClaimUsernameForm'
 
 import { Container, Hero, Preview } from './styles'
 
-import previewImage from '../../assets/app-preview.png'
+import previewImage from '@/shared/assets/app-preview.png'
 
 export const HomeView = () => {
   return (

@@ -1,9 +1,17 @@
-import { useUpdateProfileModel } from '@/presentation/view-models/update-profile.view-model'
+import { useUpdateProfileModel } from '@/app/view-models/update-profile.view-model'
 
-import { UpdateProfileView } from '@/views/register/update-profile/update-profile.view'
+import { UpdateProfileView } from '@/app/views/register/update-profile/update-profile.view'
+
+import { UserRepository } from '@/data/repositories/user.repository'
+
+import { UpdateProfileUseCase } from '@/domain/usecases/update-profile.usecase'
 
 export default function UpdateProfile() {
-  const methods = useUpdateProfileModel()
+  const userRepository = new UserRepository()
+
+  const updateProfileUseCase = new UpdateProfileUseCase(userRepository)
+
+  const methods = useUpdateProfileModel(updateProfileUseCase)
 
   return <UpdateProfileView {...methods} />
 }

@@ -1,4 +1,4 @@
-import { api } from '@/lib/axios'
+import { api } from '@/infra/axios/axios'
 
 import { IUserRepository } from '@/domain/repositories/user.repository'
 

@@ -9,7 +9,7 @@ import {
 
 import { useConnectCalendarModel } from './connect-calendar.model'
 
-import { Container, Header } from '../../../views/register/styles'
+import { Container, Header } from '../../../app/views/register/styles'
 
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
