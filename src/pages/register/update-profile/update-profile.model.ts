@@ -6,6 +6,12 @@ import { useSession } from 'next-auth/react'
 
 import { useRouter } from 'next/router'
 
+import { GetServerSideProps } from 'next'
+
+import { getServerSession } from 'next-auth'
+
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+
 import { api } from '@/lib/axios'
 
 import { updateProfileFormSchema } from './update-profile.schema'
@@ -40,4 +46,14 @@ export const useUpdateProfileModel = () => {
     handleUpdateProfile,
     session,
   }
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
+
+  return { props: { session } }
 }
