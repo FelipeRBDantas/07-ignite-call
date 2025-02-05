@@ -1,6 +1,7 @@
 import { ArrowRight } from 'phosphor-react'
 
 import {
+  Avatar,
   Button,
   Heading,
   MultiStep,
@@ -32,12 +33,18 @@ export const UpdateProfileView = (props: UpdateProfileProps) => {
           editar essas informações depois.
         </Text>
 
-        <MultiStep size={4} currentStep={1} />
+        <MultiStep size={4} currentStep={4} />
       </Header>
 
       <ProfileBox as={'form'} onSubmit={handleSubmit(handleUpdateProfile)}>
         <label>
           <Text size={'sm'}>Foto de perfil</Text>
+
+          <Avatar
+            src={session.data?.user.avatar_url}
+            referrerPolicy="no-referrer"
+            alt={session.data?.user.name}
+          />
         </label>
 
         <label>
