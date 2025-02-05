@@ -12,15 +12,15 @@ import { getServerSession } from 'next-auth'
 
 import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 
-import { api } from '@/lib/axios'
+import { UserRepository } from '@/data/repositories/user.repository'
+
+import { UpdateProfileUseCase } from '@/domain/usecases/update-profile.usecase'
 
 import { updateProfileFormSchema } from './update-profile.schema'
 
 import { UpdateProfileFormData } from './update-profile.type'
 
-export const useUpdateProfileModel = (
-  session: ReturnType<typeof useSession>,
-) => {
+export const useUpdateProfileModel = () => {
   const {
     register,
     handleSubmit,
@@ -31,10 +31,16 @@ export const useUpdateProfileModel = (
 
   const router = useRouter()
 
+  const session = useSession()
+
   async function handleUpdateProfile(data: UpdateProfileFormData) {
     console.log(data)
 
-    await api.put('/users/profile', { bio: data.bio })
+    const userRepository = new UserRepository()
+
+    const updateProfileUseCase = new UpdateProfileUseCase(userRepository)
+
+    await updateProfileUseCase.execute(data.bio)
 
     await router.push(`/schedule/${session.data?.user.username}`)
   }
