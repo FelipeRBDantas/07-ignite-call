@@ -1,7 +1,3 @@
-import { GetServerSideProps } from 'next'
-
-import { getServerSession } from 'next-auth'
-
 import { ArrowRight } from 'phosphor-react'
 
 import {
@@ -12,8 +8,6 @@ import {
   Text,
   TextArea,
 } from '@feliperbdantas-ignite-ui/react'
-
-import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
 
 import { useUpdateProfileModel } from '@/app/view-models/update-profile.view-model'
 
@@ -68,14 +62,4 @@ export const UpdateProfileView = (props: UpdateProfileProps) => {
       </ProfileBox>
     </Container>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  const session = await getServerSession(
-    req,
-    res,
-    buildNextAuthOptions(req, res),
-  )
-
-  return { props: { session } }
 }

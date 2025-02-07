@@ -1,3 +1,9 @@
+import { GetServerSideProps } from 'next'
+
+import { getServerSession } from 'next-auth'
+
+import { buildNextAuthOptions } from '@/pages/api/auth/[...nextauth].api'
+
 import { useUpdateProfileModel } from '@/app/view-models/update-profile.view-model'
 
 import { UpdateProfileView } from '@/app/views/register/update-profile/update-profile.view'
@@ -14,4 +20,14 @@ export default function UpdateProfile() {
   const methods = useUpdateProfileModel(updateProfileUseCase)
 
   return <UpdateProfileView {...methods} />
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(
+    req,
+    res,
+    buildNextAuthOptions(req, res),
+  )
+
+  return { props: { session } }
 }
