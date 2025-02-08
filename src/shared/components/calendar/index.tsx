@@ -12,7 +12,7 @@ import {
 } from './styles'
 
 export function Calendar() {
-  const methods = useCalendarModel()
+  const { shortWeekDays } = useCalendarModel()
 
   return (
     <CalendarContainer>
@@ -35,7 +35,7 @@ export function Calendar() {
       <CalendarBody>
         <thead>
           <tr>
-            {methods.shortWeekDays.map((weekDay) => (
+            {shortWeekDays.map((weekDay) => (
               <th key={weekDay}>{weekDay}.</th>
             ))}
           </tr>
