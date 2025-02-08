@@ -4,6 +4,8 @@ import { Avatar, Heading, Text } from '@feliperbdantas-ignite-ui/react'
 
 import { ScheduleProps } from '@/domain/model/schedule.type'
 
+import { ScheduleForm } from './schedule-form'
+
 import { Container, UserHeader } from './styles'
 
 type IScheduleProps = ReturnType<typeof useScheduleModel> & ScheduleProps
@@ -20,6 +22,8 @@ export const ScheduleView = (props: IScheduleProps) => {
 
         <Text>{user.bio}</Text>
       </UserHeader>
+
+      <ScheduleForm />
     </Container>
   )
 }
