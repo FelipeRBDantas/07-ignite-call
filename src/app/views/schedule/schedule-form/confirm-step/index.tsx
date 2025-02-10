@@ -5,14 +5,23 @@ import {
   TextInput,
 } from '@feliperbdantas-ignite-ui/react'
 
-import { ConfirmForm, FormActions, FormHeader } from './styles'
 import { CalendarBlank } from 'phosphor-react'
 
+import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
+
+import { useConfirmModel } from '@/app/view-models/confirm.view-model'
+
 export function ConfirmStep() {
-  function handleConfirmScheduling() {}
+  const {
+    handleConfirmScheduling,
+    register,
+    handleSubmit,
+    isSubmitting,
+    errors,
+  } = useConfirmModel()
 
   return (
-    <ConfirmForm as="form" onSubmit={handleConfirmScheduling}>
+    <ConfirmForm as="form" onSubmit={handleSubmit(handleConfirmScheduling)}>
       <FormHeader>
         <Text>
           <CalendarBlank />
@@ -25,19 +34,29 @@ export function ConfirmStep() {
       <label>
         <Text size="sm">Nome completo</Text>
 
-        <TextInput placeholder="Seu nome" />
+        <TextInput placeholder="Seu nome" {...register('name')} />
+
+        {errors.name && <FormError size="sm">{errors.name.message}</FormError>}
       </label>
 
       <label>
         <Text size="sm">Endereço de e-mail</Text>
 
-        <TextInput placeholder="nome@example.com" />
+        <TextInput
+          type="email"
+          placeholder="nome@example.com"
+          {...register('email')}
+        />
+
+        {errors.email && (
+          <FormError size="sm">{errors.email.message}</FormError>
+        )}
       </label>
 
       <label>
         <Text size="sm">Observações</Text>
 
-        <TextArea />
+        <TextArea {...register('observations')} />
       </label>
 
       <FormActions>
@@ -45,7 +64,9 @@ export function ConfirmStep() {
           Cancelar
         </Button>
 
-        <Button type="submit">Confirmar</Button>
+        <Button type="submit" disabled={isSubmitting}>
+          Confirmar
+        </Button>
       </FormActions>
     </ConfirmForm>
   )
