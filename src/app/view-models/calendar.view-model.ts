@@ -15,9 +15,23 @@ export const useCalendarModel = () => {
 
   const currentYear = currentDate.format('YYYY')
 
+  function handlePreviousMonth() {
+    setCurrentDate((currentDate) => {
+      return currentDate.subtract(1, 'month')
+    })
+  }
+
+  function handleNextMonth() {
+    setCurrentDate((currentDate) => {
+      return currentDate.add(1, 'month')
+    })
+  }
+
   return {
     shortWeekDays,
     currentMonth,
     currentYear,
+    handlePreviousMonth,
+    handleNextMonth,
   }
 }

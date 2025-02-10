@@ -12,7 +12,13 @@ import {
 } from './styles'
 
 export function Calendar() {
-  const { shortWeekDays, currentMonth, currentYear } = useCalendarModel()
+  const {
+    shortWeekDays,
+    currentMonth,
+    currentYear,
+    handlePreviousMonth,
+    handleNextMonth,
+  } = useCalendarModel()
 
   return (
     <CalendarContainer>
@@ -22,11 +28,11 @@ export function Calendar() {
         </CalendarTitle>
 
         <CalendarActions>
-          <button>
+          <button onClick={handlePreviousMonth} title="Previous month">
             <CaretLeft />
           </button>
 
-          <button>
+          <button onClick={handleNextMonth} title="Next month">
             <CaretRight />
           </button>
         </CalendarActions>
