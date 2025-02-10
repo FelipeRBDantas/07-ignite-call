@@ -5,7 +5,7 @@ import {
   TextInput,
 } from '@feliperbdantas-ignite-ui/react'
 
-import { CalendarBlank } from 'phosphor-react'
+import { CalendarBlank, Clock } from 'phosphor-react'
 
 import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
 
@@ -28,7 +28,10 @@ export function ConfirmStep() {
           01 de Fevereiro de 2025
         </Text>
 
-        <Text>18:00h</Text>
+        <Text>
+          <Clock />
+          18:00h
+        </Text>
       </FormHeader>
 
       <label>

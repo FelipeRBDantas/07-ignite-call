@@ -2,7 +2,7 @@ import { styled, Box, Text } from '@feliperbdantas-ignite-ui/react'
 
 export const ConfirmForm = styled(Box, {
   maxWidth: 540,
-  margin: '$6 0 auto',
+  margin: '$6 auto 0',
 
   display: 'flex',
   flexDirection: 'column',
@@ -17,10 +17,10 @@ export const ConfirmForm = styled(Box, {
 
 export const FormHeader = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
+  alignItems: 'center',
   gap: '$4',
 
-  paddingTop: '$6',
+  paddingBottom: '$6',
   marginBottom: '$2',
   borderBottom: '1px solid $gray600',
 
@@ -30,7 +30,7 @@ export const FormHeader = styled('div', {
     gap: '$2',
 
     svg: {
-      color: '$ignite300',
+      color: '$ignite200',
       width: '$5',
       height: '$5',
     },
