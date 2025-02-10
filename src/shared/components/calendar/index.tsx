@@ -12,13 +12,13 @@ import {
 } from './styles'
 
 export function Calendar() {
-  const { shortWeekDays } = useCalendarModel()
+  const { shortWeekDays, currentMonth, currentYear } = useCalendarModel()
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          Fevereiro <span>2025</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
 
         <CalendarActions>
