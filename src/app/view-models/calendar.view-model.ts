@@ -45,11 +45,21 @@ export const useCalendarModel = () => {
       return lastDayInCurrentMonth.add(i + 1, 'day')
     })
 
-    return [
-      ...previousMonthFillArray,
-      ...daysInMonthArray,
-      ...lastMonthFillArray,
+    const calendarDays = [
+      ...previousMonthFillArray.map((date) => {
+        return { date, disabled: true }
+      }),
+      ...daysInMonthArray.map((date) => {
+        return { date, disabled: false }
+      }),
+      ...lastMonthFillArray.map((date) => {
+        return { date, disabled: true }
+      }),
     ]
+
+    // const calendarWeeks = calendarDays.reduce((acc, day) => {}, [])
+
+    return calendarDays
   }, [currentDate])
 
   console.log(calendarWeeks)
