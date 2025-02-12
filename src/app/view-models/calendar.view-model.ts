@@ -4,6 +4,16 @@ import dayjs from 'dayjs'
 
 import { getWeekDays } from '@/shared/utils/get-week-days'
 
+interface CalendarWeek {
+  week: number
+  days: Array<{
+    date: dayjs.Dayjs
+    disabled: boolean
+  }>
+}
+
+type CalendarWeeks = CalendarWeek[]
+
 export const useCalendarModel = () => {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
@@ -57,7 +67,12 @@ export const useCalendarModel = () => {
       }),
     ]
 
-    // const calendarWeeks = calendarDays.reduce((acc, day) => {}, [])
+    // const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
+    //   (weeks, _, i, original) => {
+    //     return []
+    //   },
+    //   [],
+    // )
 
     return calendarDays
   }, [currentDate])
