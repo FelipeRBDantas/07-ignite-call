@@ -32,7 +32,24 @@ export const useCalendarModel = () => {
       })
       .reverse()
 
-    return [...previousMonthFillArray, ...daysInMonthArray]
+    const lastDayInCurrentMonth = currentDate.set(
+      'date',
+      currentDate.daysInMonth(),
+    )
+
+    const lastWeekDay = lastDayInCurrentMonth.get('day')
+
+    const lastMonthFillArray = Array.from({
+      length: 7 - (lastWeekDay + 1),
+    }).map((_, i) => {
+      return lastDayInCurrentMonth.add(i + 1, 'day')
+    })
+
+    return [
+      ...previousMonthFillArray,
+      ...daysInMonthArray,
+      ...lastMonthFillArray,
+    ]
   }, [currentDate])
 
   console.log(calendarWeeks)
