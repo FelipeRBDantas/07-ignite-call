@@ -67,14 +67,23 @@ export const useCalendarModel = () => {
       }),
     ]
 
-    // const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
-    //   (weeks, _, i, original) => {
-    //     return []
-    //   },
-    //   [],
-    // )
+    const calendarWeeks = calendarDays.reduce<CalendarWeeks>(
+      (weeks, _, i, original) => {
+        const isNewWeek = i % 7 === 0
 
-    return calendarDays
+        if (isNewWeek) {
+          weeks.push({
+            week: i / 7 + 1,
+            days: original.slice(i, i + 7),
+          })
+        }
+
+        return weeks
+      },
+      [],
+    )
+
+    return calendarWeeks
   }, [currentDate])
 
   console.log(calendarWeeks)
