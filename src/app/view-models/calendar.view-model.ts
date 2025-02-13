@@ -86,8 +86,6 @@ export const useCalendarModel = () => {
     return calendarWeeks
   }, [currentDate])
 
-  console.log(calendarWeeks)
-
   function handlePreviousMonth() {
     setCurrentDate((currentDate) => {
       return currentDate.subtract(1, 'month')
@@ -106,5 +104,6 @@ export const useCalendarModel = () => {
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    calendarWeeks,
   }
 }

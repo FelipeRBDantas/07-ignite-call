@@ -18,6 +18,7 @@ export function Calendar() {
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    calendarWeeks,
   } = useCalendarModel()
 
   return (
@@ -48,17 +49,17 @@ export function Calendar() {
         </thead>
 
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <CalendarDay>1</CalendarDay>
-            </td>
-          </tr>
+          {calendarWeeks.map((week) => (
+            <tr key={week.week}>
+              {week.days.map(({ date, disabled }) => (
+                <td key={date.toISOString()}>
+                  <CalendarDay disabled={disabled}>
+                    {date.get('date')}
+                  </CalendarDay>
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </CalendarBody>
     </CalendarContainer>
