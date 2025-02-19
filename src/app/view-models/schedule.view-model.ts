@@ -1,8 +1,6 @@
-// import { ScheduleUseCase } from '@/domain/usecases/schedule.usecase'
-
 import { useState } from 'react'
 
-export const useScheduleModel = (/* scheduleUseCase: ScheduleUseCase */) => {
+export const useScheduleModel = () => {
   const [selectedDate, isSelectedDate] = useState<Date | null>(null)
 
   const isDateSelected = !!selectedDate
