@@ -11,7 +11,12 @@ import {
   CalendarTitle,
 } from './styles'
 
-export function Calendar() {
+interface CalendarProps {
+  selectedDate: Date | null
+  onDateSelected: (date: Date) => void
+}
+
+export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
   const {
     shortWeekDays,
     currentMonth,
@@ -53,7 +58,10 @@ export function Calendar() {
             <tr key={week.week}>
               {week.days.map(({ date, disabled }) => (
                 <td key={date.toISOString()}>
-                  <CalendarDay disabled={disabled}>
+                  <CalendarDay
+                    onClick={() => onDateSelected(date.toDate())}
+                    disabled={disabled}
+                  >
                     {date.get('date')}
                   </CalendarDay>
                 </td>

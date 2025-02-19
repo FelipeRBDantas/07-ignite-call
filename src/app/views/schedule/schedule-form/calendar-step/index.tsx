@@ -11,11 +11,11 @@ import {
 } from './styles'
 
 export function CalendarStep() {
-  const { isDateSelected } = useScheduleModel()
+  const { isDateSelected, selectedDate, isSelectedDate } = useScheduleModel()
 
   return (
     <Container isTimePickerOpen={isDateSelected}>
-      <Calendar />
+      <Calendar selectedDate={selectedDate} onDateSelected={isSelectedDate} />
 
       {isDateSelected && (
         <TimePicker>
