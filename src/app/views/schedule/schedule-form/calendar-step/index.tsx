@@ -11,7 +11,13 @@ import {
 } from './styles'
 
 export function CalendarStep() {
-  const { isDateSelected, selectedDate, isSelectedDate } = useScheduleModel()
+  const {
+    isDateSelected,
+    selectedDate,
+    isSelectedDate,
+    weekDay,
+    describeDate,
+  } = useScheduleModel()
 
   return (
     <Container isTimePickerOpen={isDateSelected}>
@@ -20,7 +26,7 @@ export function CalendarStep() {
       {isDateSelected && (
         <TimePicker>
           <TimePickerHeader>
-            sábado <span>01 de janeiro</span>
+            {weekDay} <span>{describeDate}</span>
           </TimePickerHeader>
 
           <TimePickerList>
