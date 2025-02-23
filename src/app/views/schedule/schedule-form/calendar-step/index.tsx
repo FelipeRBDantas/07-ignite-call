@@ -1,5 +1,9 @@
 import { useScheduleModel } from '@/app/view-models/schedule.view-model'
 
+import { AvailabilityRepository } from '@/data/repositories/availability.repository'
+
+import { AvailabilityUseCase } from '@/domain/usecases/availability.usecase'
+
 import { Calendar } from '@/shared/components/calendar'
 
 import {
@@ -11,13 +15,17 @@ import {
 } from './styles'
 
 export function CalendarStep() {
+  const availabilityRepository = new AvailabilityRepository()
+
+  const availabilityUseCase = new AvailabilityUseCase(availabilityRepository)
+
   const {
     isDateSelected,
     selectedDate,
     isSelectedDate,
     weekDay,
     describeDate,
-  } = useScheduleModel()
+  } = useScheduleModel(availabilityUseCase)
 
   return (
     <Container isTimePickerOpen={isDateSelected}>
