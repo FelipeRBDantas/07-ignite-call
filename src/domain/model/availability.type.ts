@@ -1,4 +1,4 @@
 export interface GetAvailability {
-  availableTimes: []
-  possibleTimes: []
+  availableTimes: number[]
+  possibleTimes: number[]
 }

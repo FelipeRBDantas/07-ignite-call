@@ -6,10 +6,14 @@ import dayjs from 'dayjs'
 
 import { AvailabilityUseCase } from '@/domain/usecases/availability.usecase'
 
-export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
-  const [selectedDate, isSelectedDate] = useState<Date | null>(null)
+import { GetAvailability } from '@/domain/model/availability.type'
 
-  const [availability, isAvailability] = useState<null>(null)
+type Availability = GetAvailability
+
+export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+
+  const [availability, setAvailability] = useState<Availability | null>(null)
 
   const router = useRouter()
 
@@ -31,7 +35,7 @@ export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
     availabilityUseCase
       .execute(username, dayjs(selectedDate).format('YYYY-MM-DD'))
       .then((response) => {
-        console.log(response)
+        setAvailability(response.data)
       })
       .catch(console.error)
   }, [availabilityUseCase, selectedDate, username])
@@ -39,7 +43,8 @@ export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
   return {
     isDateSelected,
     selectedDate,
-    isSelectedDate,
+    setSelectedDate,
+    availability,
     weekDay,
     describeDate,
   }

@@ -5,6 +5,6 @@ export class AvailabilityUseCase {
   constructor(private availabilityRepository: IAvailabilityRepository) {}
 
   async execute(user: string, date: string) {
-    await this.availabilityRepository.availability(user, date)
+    return await this.availabilityRepository.availability(user, date)
   }
 }
