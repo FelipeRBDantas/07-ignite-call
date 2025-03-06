@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { useRouter } from 'next/router'
 
@@ -7,13 +7,12 @@ import dayjs from 'dayjs'
 import { AvailabilityUseCase } from '@/domain/usecases/availability.usecase'
 
 import { GetAvailability } from '@/domain/model/availability.type'
+import { useQuery } from '@tanstack/react-query'
 
 type Availability = GetAvailability
 
 export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
-
-  const [availability, setAvailability] = useState<Availability | null>(null)
 
   const router = useRouter()
 
@@ -27,18 +26,22 @@ export const useScheduleModel = (availabilityUseCase: AvailabilityUseCase) => {
     ? dayjs(selectedDate).format('DD[ de ] MMMM')
     : null
 
-  useEffect(() => {
-    if (!selectedDate) {
-      return
-    }
+  const selectedDateWithoutTime = selectedDate
+    ? dayjs(selectedDate).format('YYYY-MM-DD')
+    : ''
 
-    availabilityUseCase
-      .execute(username, dayjs(selectedDate).format('YYYY-MM-DD'))
-      .then((response) => {
-        setAvailability(response.data)
-      })
-      .catch(console.error)
-  }, [availabilityUseCase, selectedDate, username])
+  const { data: availability } = useQuery<Availability>({
+    queryKey: ['availability', selectedDateWithoutTime],
+    queryFn: async () => {
+      const response = await availabilityUseCase.execute(
+        username,
+        selectedDateWithoutTime,
+      )
+
+      return response.data
+    },
+    enabled: !!selectedDate,
+  })
 
   return {
     isDateSelected,
