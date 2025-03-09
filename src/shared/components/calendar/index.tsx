@@ -2,6 +2,10 @@ import { CaretLeft, CaretRight } from 'phosphor-react'
 
 import { useCalendarModel } from '@/app/view-models/calendar.view-model'
 
+import { BlockedDatesRepository } from '@/data/repositories/blocked-dates.repository'
+
+import { BlockedDatesUseCase } from '@/domain/usecases/blocked-dates.usecase'
+
 import {
   CalendarActions,
   CalendarBody,
@@ -17,14 +21,19 @@ interface CalendarProps {
 }
 
 export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
+  const blockedDatesRepository = new BlockedDatesRepository()
+
+  const blockedDatesUseCase = new BlockedDatesUseCase(blockedDatesRepository)
+
   const {
     shortWeekDays,
     currentMonth,
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    blockedDates,
     calendarWeeks,
-  } = useCalendarModel()
+  } = useCalendarModel(blockedDatesUseCase)
 
   return (
     <CalendarContainer>

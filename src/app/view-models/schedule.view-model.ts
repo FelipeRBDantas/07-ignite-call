@@ -4,10 +4,11 @@ import { useRouter } from 'next/router'
 
 import dayjs from 'dayjs'
 
+import { useQuery } from '@tanstack/react-query'
+
 import { AvailabilityUseCase } from '@/domain/usecases/availability.usecase'
 
 import { GetAvailability } from '@/domain/model/availability.type'
-import { useQuery } from '@tanstack/react-query'
 
 type Availability = GetAvailability
 

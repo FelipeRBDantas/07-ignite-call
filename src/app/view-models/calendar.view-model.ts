@@ -2,19 +2,29 @@ import { useMemo, useState } from 'react'
 
 import dayjs from 'dayjs'
 
+import { useQuery } from '@tanstack/react-query'
+
+import { useRouter } from 'next/router'
+
 import { getWeekDays } from '@/shared/utils/get-week-days'
+
+import { BlockedDatesUseCase } from '@/domain/usecases/blocked-dates.usecase'
 
 interface CalendarWeek {
   week: number
   days: Array<{
     date: dayjs.Dayjs
-    disabled: boolean
+    disabled: boolean | undefined
   }>
 }
 
 type CalendarWeeks = CalendarWeek[]
 
-export const useCalendarModel = () => {
+interface BlockedDates {
+  blockedWeekDays: number[]
+}
+
+export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
   const [currentDate, setCurrentDate] = useState(() => {
     return dayjs().set('date', 1)
   })
@@ -24,6 +34,27 @@ export const useCalendarModel = () => {
   const currentMonth = currentDate.format('MMMM')
 
   const currentYear = currentDate.format('YYYY')
+
+  const router = useRouter()
+
+  const username = String(router.query.username)
+
+  const { data: blockedDates } = useQuery<BlockedDates>({
+    queryKey: [
+      'blocked-dates',
+      currentDate.get('year'),
+      currentDate.get('month'),
+    ],
+    queryFn: async () => {
+      const response = await blockedDatesUseCase.execute(
+        username,
+        currentDate.get('year'),
+        currentDate.get('month'),
+      )
+
+      return response.data
+    },
+  })
 
   const calendarWeeks = useMemo(() => {
     const daysInMonthArray = Array.from({
@@ -60,7 +91,12 @@ export const useCalendarModel = () => {
         return { date, disabled: true }
       }),
       ...daysInMonthArray.map((date) => {
-        return { date, disabled: date.endOf('day').isBefore(new Date()) }
+        return {
+          date,
+          disabled:
+            date.endOf('day').isBefore(new Date()) ||
+            blockedDates?.blockedWeekDays?.includes(date.get('day')),
+        }
       }),
       ...lastMonthFillArray.map((date) => {
         return { date, disabled: true }
@@ -84,7 +120,7 @@ export const useCalendarModel = () => {
     )
 
     return calendarWeeks
-  }, [currentDate])
+  }, [currentDate, blockedDates])
 
   function handlePreviousMonth() {
     setCurrentDate((currentDate) => {
@@ -104,6 +140,7 @@ export const useCalendarModel = () => {
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    blockedDates,
     calendarWeeks,
   }
 }
