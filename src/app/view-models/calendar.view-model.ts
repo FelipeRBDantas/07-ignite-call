@@ -14,7 +14,7 @@ interface CalendarWeek {
   week: number
   days: Array<{
     date: dayjs.Dayjs
-    disabled: boolean | undefined
+    disabled: boolean
   }>
 }
 
@@ -57,6 +57,8 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
   })
 
   const calendarWeeks = useMemo(() => {
+    if (!blockedDates) return []
+
     const daysInMonthArray = Array.from({
       length: currentDate.daysInMonth(),
     }).map((_, i) => {
@@ -95,7 +97,7 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
           date,
           disabled:
             date.endOf('day').isBefore(new Date()) ||
-            blockedDates?.blockedWeekDays?.includes(date.get('day')),
+            blockedDates.blockedWeekDays.includes(date.get('day')),
         }
       }),
       ...lastMonthFillArray.map((date) => {

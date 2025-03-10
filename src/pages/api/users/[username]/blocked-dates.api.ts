@@ -18,17 +18,6 @@ export default async function handler(
     return res.status(400).json({ message: 'Year or month not specified.' })
   }
 
-  if (
-    typeof year !== 'string' ||
-    typeof month !== 'string' ||
-    !/^\d{4}$/.test(year) ||
-    !/^\d{2}$/.test(month)
-  ) {
-    return res
-      .status(400)
-      .json({ message: "Invalid date format. Use 'YYYY-MM'." })
-  }
-
   const user = await prisma.user.findUnique({
     where: {
       username,
@@ -54,5 +43,12 @@ export default async function handler(
     })
   })
 
-  return res.json({ blockedWeekDays })
+  const blockedDatesRaw = await prisma.$queryRaw`
+    SELECT * 
+    FROM schedulings AS S
+    WHERE S.user_id = ${user.id}
+    AND DATE_FORMAT(S.date, '%Y-%m') = ${`${year}-${month}`}
+  `
+
+  return res.json({ blockedWeekDays, blockedDatesRaw })
 }
