@@ -22,6 +22,7 @@ type CalendarWeeks = CalendarWeek[]
 
 interface BlockedDates {
   blockedWeekDays: number[]
+  blockedDates: number[]
 }
 
 export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
@@ -49,7 +50,7 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
       const response = await blockedDatesUseCase.execute(
         username,
         currentDate.get('year'),
-        currentDate.get('month'),
+        currentDate.get('month') + 1,
       )
 
       return response.data
@@ -98,6 +99,7 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
           disabled:
             date.endOf('day').isBefore(new Date()) ||
             blockedDates.blockedWeekDays.includes(date.get('day')),
+          blocked: blockedDates.blockedDates.includes(date.get('date')),
         }
       }),
       ...lastMonthFillArray.map((date) => {
