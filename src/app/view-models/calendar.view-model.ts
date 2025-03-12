@@ -138,12 +138,27 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
     })
   }
 
+  function isAllTimesDisabled() {
+    return calendarWeeks.every((week) => {
+      const isWeekDisabled = week.days.filter((day) => !day.disabled)
+
+      const isDisabled = isWeekDisabled.some((day) => {
+        return blockedDates?.blockedDates.includes(day.date.get('date'))
+      })
+
+      if (isDisabled) return true
+
+      return false
+    })
+  }
+
   return {
     shortWeekDays,
     currentMonth,
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    isAllTimesDisabled,
     blockedDates,
     calendarWeeks,
   }

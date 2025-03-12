@@ -31,6 +31,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
+    isAllTimesDisabled,
     blockedDates,
     calendarWeeks,
   } = useCalendarModel(blockedDatesUseCase)
@@ -69,7 +70,7 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
                 <td key={date.toISOString()}>
                   <CalendarDay
                     onClick={() => onDateSelected(date.toDate())}
-                    disabled={disabled}
+                    disabled={disabled || isAllTimesDisabled()}
                   >
                     {date.get('date')}
                   </CalendarDay>
