@@ -40,6 +40,12 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
 
   const username = String(router.query.username)
 
+  const convertedMonth = Number(
+    Number(currentDate.get('month')) <= 9
+      ? `0${currentDate.get('month')}`
+      : currentDate.get('month'),
+  )
+
   const { data: blockedDates } = useQuery<BlockedDates>({
     queryKey: [
       'blocked-dates',
@@ -50,7 +56,7 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
       const response = await blockedDatesUseCase.execute(
         username,
         currentDate.get('year'),
-        currentDate.get('month') + 1,
+        convertedMonth + 1,
       )
 
       return response.data
@@ -138,27 +144,12 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
     })
   }
 
-  function isAllTimesDisabled() {
-    return calendarWeeks.every((week) => {
-      const isWeekDisabled = week.days.filter((day) => !day.disabled)
-
-      const isDisabled = isWeekDisabled.some((day) => {
-        return blockedDates?.blockedDates.includes(day.date.get('date'))
-      })
-
-      if (isDisabled) return true
-
-      return false
-    })
-  }
-
   return {
     shortWeekDays,
     currentMonth,
     currentYear,
     handlePreviousMonth,
     handleNextMonth,
-    isAllTimesDisabled,
     blockedDates,
     calendarWeeks,
   }
