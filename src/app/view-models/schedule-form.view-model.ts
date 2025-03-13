@@ -1,12 +1,15 @@
 import { useState } from 'react'
 
 export const useScheduleFormModel = () => {
-  const [selectDateTime, setSelectDateTime] = useState<Date | null>()
+  const [selectedDateTime, setSelectedDateTime] = useState<Date | null>()
 
-  console.log(selectDateTime)
+  function handleClearSelectedDateTime() {
+    setSelectedDateTime(null)
+  }
 
   return {
-    selectDateTime,
-    setSelectDateTime,
+    selectedDateTime,
+    setSelectedDateTime,
+    handleClearSelectedDateTime,
   }
 }

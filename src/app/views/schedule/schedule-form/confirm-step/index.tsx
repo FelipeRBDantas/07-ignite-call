@@ -11,26 +11,33 @@ import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
 
 import { useConfirmModel } from '@/app/view-models/confirm.view-model'
 
-export function ConfirmStep() {
+export interface ConfirmStepProps {
+  schedulingDate: Date
+  onCancelConfirmation: () => void
+}
+
+export function ConfirmStep(confirmStepProps: ConfirmStepProps) {
   const {
     handleConfirmScheduling,
     register,
     handleSubmit,
     isSubmitting,
     errors,
-  } = useConfirmModel()
+    describeDate,
+    describeTime,
+  } = useConfirmModel(confirmStepProps)
 
   return (
     <ConfirmForm as="form" onSubmit={handleSubmit(handleConfirmScheduling)}>
       <FormHeader>
         <Text>
           <CalendarBlank />
-          01 de Fevereiro de 2025
+          {describeDate}
         </Text>
 
         <Text>
           <Clock />
-          18:00h
+          {describeTime}
         </Text>
       </FormHeader>
 
@@ -63,7 +70,11 @@ export function ConfirmStep() {
       </label>
 
       <FormActions>
-        <Button type="button" variant="tertiary">
+        <Button
+          type="button"
+          variant="tertiary"
+          onClick={confirmStepProps.onCancelConfirmation}
+        >
           Cancelar
         </Button>
 
