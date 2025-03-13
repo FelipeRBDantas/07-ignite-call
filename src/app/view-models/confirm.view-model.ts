@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,9 +10,16 @@ import { ConfirmFormData } from '@/domain/model/confirm.type'
 
 import { confirmFormSchema } from '@/domain/validations/confirm.schema'
 
+import { ScheduleUseCase } from '@/domain/usecases/schedule.usecase'
+
 import { ConfirmStepProps } from '../views/schedule/schedule-form/confirm-step'
 
-export const useConfirmModel = (calendarStepProps: ConfirmStepProps) => {
+import { ScheduleFormData } from '@/domain/model/schedule.type'
+
+export const useConfirmModel = (
+  scheduleUseCase: ScheduleUseCase,
+  calendarStepProps: ConfirmStepProps,
+) => {
   const {
     register,
     handleSubmit,
@@ -18,6 +27,10 @@ export const useConfirmModel = (calendarStepProps: ConfirmStepProps) => {
   } = useForm<ConfirmFormData>({
     resolver: zodResolver(confirmFormSchema),
   })
+
+  const router = useRouter()
+
+  const username = String(router.query.username)
 
   const describeDate = dayjs(calendarStepProps.schedulingDate).format(
     'DD[ de ]MMMM[ de ]YYYY',
@@ -27,8 +40,16 @@ export const useConfirmModel = (calendarStepProps: ConfirmStepProps) => {
     'HH:mm[h]',
   )
 
-  function handleConfirmScheduling(data: ConfirmFormData) {
-    console.log(data)
+  function treatFormData(formData: ConfirmFormData): ScheduleFormData {
+    return { ...formData, date: calendarStepProps.schedulingDate }
+  }
+
+  async function handleConfirmScheduling(data: ConfirmFormData) {
+    const formData = treatFormData(data)
+
+    await scheduleUseCase.execute(username, formData)
+
+    calendarStepProps.onCancelConfirmation()
   }
 
   return {

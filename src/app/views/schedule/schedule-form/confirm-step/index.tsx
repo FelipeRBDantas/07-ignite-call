@@ -11,12 +11,20 @@ import { ConfirmForm, FormActions, FormError, FormHeader } from './styles'
 
 import { useConfirmModel } from '@/app/view-models/confirm.view-model'
 
+import { ScheduleRepository } from '@/data/repositories/schedule.repository'
+
+import { ScheduleUseCase } from '@/domain/usecases/schedule.usecase'
+
 export interface ConfirmStepProps {
   schedulingDate: Date
   onCancelConfirmation: () => void
 }
 
 export function ConfirmStep(confirmStepProps: ConfirmStepProps) {
+  const scheduleRepository = new ScheduleRepository()
+
+  const scheduleUseCase = new ScheduleUseCase(scheduleRepository)
+
   const {
     handleConfirmScheduling,
     register,
@@ -25,7 +33,7 @@ export function ConfirmStep(confirmStepProps: ConfirmStepProps) {
     errors,
     describeDate,
     describeTime,
-  } = useConfirmModel(confirmStepProps)
+  } = useConfirmModel(scheduleUseCase, confirmStepProps)
 
   return (
     <ConfirmForm as="form" onSubmit={handleSubmit(handleConfirmScheduling)}>

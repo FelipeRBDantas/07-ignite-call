@@ -5,3 +5,10 @@ export interface ScheduleProps {
     avatarUrl: string
   }
 }
+
+export interface ScheduleFormData {
+  name: string
+  email: string
+  observations: string | null
+  date: Date
+}

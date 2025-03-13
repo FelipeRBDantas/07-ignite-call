@@ -28,8 +28,6 @@ export const useUpdateProfileModel = (
   const session = useSession()
 
   async function handleUpdateProfile(data: UpdateProfileFormData) {
-    console.log(data)
-
     await updateProfileUseCase.execute(data.bio)
 
     await router.push(`/schedule/${session.data?.user.username}`)
