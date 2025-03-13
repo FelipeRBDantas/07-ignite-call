@@ -14,7 +14,11 @@ import {
   TimePickerList,
 } from './styles'
 
-export function CalendarStep() {
+export interface CalendarStepProps {
+  onSelectedDateTime: (date: Date) => void
+}
+
+export function CalendarStep(calendarStepProps: CalendarStepProps) {
   const availabilityRepository = new AvailabilityRepository()
 
   const availabilityUseCase = new AvailabilityUseCase(availabilityRepository)
@@ -23,10 +27,11 @@ export function CalendarStep() {
     isDateSelected,
     selectedDate,
     setSelectedDate,
+    handleSelectTime,
     availability,
     weekDay,
     describeDate,
-  } = useScheduleModel(availabilityUseCase)
+  } = useScheduleModel(availabilityUseCase, calendarStepProps)
 
   return (
     <Container isTimePickerOpen={isDateSelected}>
@@ -43,6 +48,7 @@ export function CalendarStep() {
               <TimePickerItem
                 key={hour}
                 disabled={!availability.availableTimes.includes(hour)}
+                onClick={() => handleSelectTime(hour)}
               >
                 {String(hour).padStart(2, '0')}:00h
               </TimePickerItem>
