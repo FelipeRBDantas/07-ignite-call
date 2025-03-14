@@ -6,6 +6,6 @@ export interface IBlockedDatesRepository {
   blockedDates(
     user: string,
     year: number,
-    month: number,
+    month: string,
   ): Promise<AxiosResponse<GetBlockedDates>>
 }

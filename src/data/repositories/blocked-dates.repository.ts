@@ -10,7 +10,7 @@ export class BlockedDatesRepository implements IBlockedDatesRepository {
   async blockedDates(
     user: string,
     year: number,
-    month: number,
+    month: string,
   ): Promise<AxiosResponse<GetBlockedDates>> {
     return await api.get(`/users/${user}/blocked-dates`, {
       params: { year, month },

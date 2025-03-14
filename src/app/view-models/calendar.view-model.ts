@@ -40,11 +40,12 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
 
   const username = String(router.query.username)
 
-  const convertedMonth = Number(
-    Number(currentDate.get('month')) <= 9
-      ? `0${currentDate.get('month')}`
-      : currentDate.get('month'),
-  )
+  const convertedMonth =
+    Number(currentDate.get('month') + 1) <= 9
+      ? `0${currentDate.get('month') + 1}`
+      : `${currentDate.get('month') + 1}`
+
+  console.log(convertedMonth)
 
   const { data: blockedDates } = useQuery<BlockedDates>({
     queryKey: [
@@ -56,7 +57,7 @@ export const useCalendarModel = (blockedDatesUseCase: BlockedDatesUseCase) => {
       const response = await blockedDatesUseCase.execute(
         username,
         currentDate.get('year'),
-        convertedMonth + 1,
+        convertedMonth,
       )
 
       return response.data
