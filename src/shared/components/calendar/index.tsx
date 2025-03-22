@@ -70,8 +70,8 @@ export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
                   <CalendarDay
                     onClick={() => onDateSelected(date.toDate())}
                     disabled={
-                      disabled &&
-                      !blockedDates?.blockedDates.includes(date.get('date'))
+                      disabled ||
+                      blockedDates?.blockedDates.includes(date.get('date'))
                     }
                   >
                     {date.get('date')}

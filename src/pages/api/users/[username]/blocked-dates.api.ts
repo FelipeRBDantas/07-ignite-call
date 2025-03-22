@@ -43,27 +43,64 @@ export default async function handler(
     })
   })
 
-  const blockedDatesRaw: Array<{ date: number }> = await prisma.$queryRaw`
-    SELECT 
-      EXTRACT(DAY FROM S.date) AS date, 
-      COUNT(S.date) AS amount,
-      ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60) AS size
+  const yearNumber = Number(year)
 
-    FROM schedulings S
+  const monthNumber = Number(month)
 
-    LEFT JOIN user_time_intervals UTI 
-      ON UTI.week_day = WEEKDAY(DATE_ADD(S.date, INTERVAL 1 DAY))
+  try {
+    const schedulings = await prisma.scheduling.findMany({
+      where: {
+        user_id: user.id,
+        date: {
+          gte: new Date(yearNumber, monthNumber - 1, 1),
+          lt: new Date(yearNumber, monthNumber, 1),
+        },
+      },
+      select: {
+        date: true,
+      },
+    })
 
-    WHERE S.user_id = ${user.id}
-      AND DATE_FORMAT(S.date, '%Y-%m') = ${`${year}-${month}`}
+    const userTimeIntervals = await prisma.userTimeInterval.findMany({
+      where: {
+        user_id: user.id,
+      },
+    })
 
-    GROUP BY EXTRACT(DAY FROM S.date), 
-      ((UTI.time_end_in_minutes - UTI.time_start_in_minutes) / 60)
+    const schedulingsPerDay = new Map<number, number>()
 
-    HAVING amount >= size
-  `
+    schedulings.forEach(({ date }) => {
+      const day = date.getDate()
 
-  const blockedDates = blockedDatesRaw.map((item) => item.date)
+      const count = schedulingsPerDay.get(day) || 0
 
-  return res.json({ blockedWeekDays, blockedDates })
+      schedulingsPerDay.set(day, count + 1)
+    })
+
+    const blockedDates: number[] = []
+
+    schedulingsPerDay.forEach((total, date) => {
+      const dayOfWeek = new Date(yearNumber, monthNumber - 1, date).getDay()
+
+      const dayTimeInterval = userTimeIntervals.find(
+        (interval) => interval.week_day === dayOfWeek,
+      )
+
+      if (dayTimeInterval) {
+        const slotsAvailable =
+          (dayTimeInterval.time_end_in_minutes -
+            dayTimeInterval.time_start_in_minutes) /
+          60
+
+        if (total >= slotsAvailable) {
+          blockedDates.push(date)
+        }
+      }
+    })
+
+    return res.json({ blockedWeekDays, blockedDates })
+  } catch (error) {
+    console.error('Error processing blocked dates:', error)
+    return res.status(500).json({ message: 'Error processing blocked dates' })
+  }
 }
