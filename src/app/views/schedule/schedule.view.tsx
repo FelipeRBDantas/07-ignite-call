@@ -1,3 +1,5 @@
+import { NextSeo } from 'next-seo'
+
 import { useScheduleModel } from '@/app/view-models/schedule.view-model'
 
 import { Avatar, Heading, Text } from '@feliperbdantas-ignite-ui/react'
@@ -14,16 +16,20 @@ export const ScheduleView = (props: IScheduleProps) => {
   const { user } = props
 
   return (
-    <Container>
-      <UserHeader>
-        <Avatar src={user.avatarUrl} />
+    <>
+      <NextSeo title={`Agendar com ${user.name} | Ignite Call`} />
 
-        <Heading>{user.name}</Heading>
+      <Container>
+        <UserHeader>
+          <Avatar src={user.avatarUrl} />
 
-        <Text>{user.bio}</Text>
-      </UserHeader>
+          <Heading>{user.name}</Heading>
 
-      <ScheduleForm />
-    </Container>
+          <Text>{user.bio}</Text>
+        </UserHeader>
+
+        <ScheduleForm />
+      </Container>
+    </>
   )
 }
