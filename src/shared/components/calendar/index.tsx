@@ -20,7 +20,7 @@ interface CalendarProps {
   onDateSelected: (date: Date) => void
 }
 
-export function Calendar({ selectedDate, onDateSelected }: CalendarProps) {
+export function Calendar({ onDateSelected }: CalendarProps) {
   const blockedDatesRepository = new BlockedDatesRepository()
 
   const blockedDatesUseCase = new BlockedDatesUseCase(blockedDatesRepository)
