@@ -4,6 +4,10 @@ import { NextApiRequest, NextApiResponse, NextPageContext } from 'next'
 
 import { destroyCookie, parseCookies } from 'nookies'
 
+import { CreateUser } from '../../domain/model/create-user.type'
+
+import { LinkAccount } from '../../domain/model/link-account.type'
+
 import { prisma } from '../prisma/prisma'
 
 export function PrismaAdapter(
@@ -11,7 +15,7 @@ export function PrismaAdapter(
   res?: NextApiResponse | NextPageContext['res'],
 ): Adapter {
   return {
-    async createUser(user) {
+    async createUser(user: CreateUser) {
       const { '@feliperbdantas-ignitecall:userId': userIdOnCookies } =
         parseCookies({ req })
 
@@ -135,7 +139,7 @@ export function PrismaAdapter(
       }
     },
 
-    async linkAccount(account) {
+    async linkAccount(account: LinkAccount) {
       await prisma.account.create({
         data: {
           user_id: account.userId,
