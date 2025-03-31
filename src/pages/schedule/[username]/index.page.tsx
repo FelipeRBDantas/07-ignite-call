@@ -2,25 +2,13 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 
 import { prisma } from '@/infra/prisma/prisma'
 
-// import { useScheduleModel } from '@/app/view-models/schedule.view-model'
-
 import { ScheduleView } from '@/app/views/schedule/schedule.view'
 
 import { useScheduleModel } from '@/app/view-models/schedule.view-model'
 
 import { ScheduleProps } from '@/domain/model/schedule.type'
 
-// import { ScheduleRepository } from '@/data/repositories/schedule.repository'
-
-// import { ScheduleUseCase } from '@/domain/usecases/schedule.usecase'
-
 export default function Schedule({ user }: ScheduleProps) {
-  // const scheduleRepository = new ScheduleRepository()
-
-  // const scheduleUseCase = new ScheduleUseCase(scheduleRepository)
-
-  // const methods = useScheduleModel(scheduleUseCase)
-
   const methods = useScheduleModel()
 
   return <ScheduleView {...methods} user={user} />

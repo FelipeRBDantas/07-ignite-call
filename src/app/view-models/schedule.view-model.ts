@@ -15,8 +15,8 @@ import { CalendarStepProps } from '../views/schedule/schedule-form/calendar-step
 type Availability = GetAvailability
 
 export const useScheduleModel = (
-  availabilityUseCase: AvailabilityUseCase,
-  calendarStepProps: CalendarStepProps,
+  availabilityUseCase?: AvailabilityUseCase,
+  calendarStepProps?: CalendarStepProps,
 ) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
 
@@ -39,12 +39,12 @@ export const useScheduleModel = (
   const { data: availability } = useQuery<Availability>({
     queryKey: ['availability', selectedDateWithoutTime],
     queryFn: async () => {
-      const response = await availabilityUseCase.execute(
+      const response = await availabilityUseCase?.execute(
         username,
         selectedDateWithoutTime,
       )
 
-      return response.data
+      return response!.data
     },
     enabled: !!selectedDate,
   })
@@ -55,7 +55,7 @@ export const useScheduleModel = (
       .startOf('hour')
       .toDate()
 
-    calendarStepProps.onSelectedDateTime(dateWithTime)
+    calendarStepProps?.onSelectedDateTime(dateWithTime)
   }
 
   return {
