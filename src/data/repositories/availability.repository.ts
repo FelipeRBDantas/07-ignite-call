@@ -9,7 +9,10 @@ export class AvailabilityRepository implements IAvailabilityRepository {
   async availability(
     user: string,
     date: string,
+    timezoneOffset: number,
   ): Promise<AxiosResponse<GetAvailability>> {
-    return await api.get(`/users/${user}/availability`, { params: { date } })
+    return await api.get(`/users/${user}/availability`, {
+      params: { date, timezoneOffset },
+    })
   }
 }

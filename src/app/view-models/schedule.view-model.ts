@@ -36,12 +36,15 @@ export const useScheduleModel = (
     ? dayjs(selectedDate).format('YYYY-MM-DD')
     : ''
 
+  const timezoneOffset = selectedDate ? selectedDate.getTimezoneOffset() : 0
+
   const { data: availability } = useQuery<Availability>({
     queryKey: ['availability', selectedDateWithoutTime],
     queryFn: async () => {
       const response = await availabilityUseCase?.execute(
         username,
         selectedDateWithoutTime,
+        timezoneOffset,
       )
 
       return response!.data

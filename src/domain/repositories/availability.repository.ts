@@ -6,5 +6,6 @@ export interface IAvailabilityRepository {
   availability(
     user: string,
     date: string,
+    timezoneOffset: number,
   ): Promise<AxiosResponse<GetAvailability>>
 }
