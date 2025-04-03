@@ -38,6 +38,13 @@ export function buildNextAuthOptions(
       }),
     ],
 
+    secret: process.env.NEXTAUTH_SECRET,
+
+    pages: {
+      signIn: '/auth/signin',
+      error: '/auth/error',
+    },
+
     callbacks: {
       async signIn({ account }) {
         if (
